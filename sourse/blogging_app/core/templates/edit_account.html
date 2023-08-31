@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<p><b><a href="{% url 'change-photo' %}">Change photo</a></b></p>
+    <h4>Edit Account Data</h4>
+    <form method="post" action="{% url 'account-edit' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br><br>
+        <input type="submit" id="submit">
+    </form>
+    {% for account in accounts %}
+        <p>Account was confirmed by {{ account.user.email }} email. </p>
+    {% endfor %}
+<p><b><a href="{% url 'change-email' %}">Change email</a></b></p>
+{%  endblock %}

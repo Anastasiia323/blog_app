@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{%  block content %}<br><br>
+    <b>{{ twit.user.username }}</b><br>
+    {{ twit.created_at }}<br><br>
+    {{ twit.name }}
+<br><br>
+<a><b>like</b></a> <a href="{% url 'create-comment' twit.id %}"><b>comment({{ twit.comments.count }})</b></a> <a href="{% url 'delete-twit' twit.id %}"><b>delete</b></a>
+<a href="{% url 'edit-twit' twit.id %}"><b>edit</b></a>
+<h3>Comments</h3>
+{% for comment in comments %}
+<br>
+<b>{{ comment.user.username }}</b><br>
+    {{ comment.created_at }}<br><br>
+    {{ comment.body }}
+<br><br>
+{% endfor %}
+{% endblock %}

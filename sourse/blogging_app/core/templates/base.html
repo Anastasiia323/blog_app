@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Talker</title>
+    </head>>
+
+    <body>
+        <nav>
+            <a href="{% url 'home' %}"><b>Home</b></a>
+            <a href="{% url 'trends' %}"><b>Trends in your country</b></a>
+            <a href="{% url 'tags' %}"><b>Tags</b></a>
+            <a href="{% url 'notifications' %}"><b>Notifications</b></a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'account-add' %}"><b>Create New Account</b></a>
+                <a href="{% url 'account'%}"><b>My Account</b></a>
+                <a href="{% url 'add-twit' %}"><b>Post</b></a>
+                <a href="{% url 'logout' %}"><b>Logout</b></a>
+            {% else %}
+            <a href="{% url 'signup' %}"><b>Sign Up</b></a> | <a href="{% url 'login' %}"><b>Sign In</b></a>
+            {% endif %}
+        </nav>
+        {% block content %}
+        {% endblock %}
+    </body>>
+</html>>

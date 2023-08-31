@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{%  block content %}
+<br><br>
+<br>
+{% for account in accounts %}
+    {% if account.file %}
+        <img src="{{ account.file.url }}">
+    {% endif %}
+    {% if account.name or account.surname %}
+        <h2>{{ account.name }} {{ account.surname }}</h2>
+    {% endif %}
+    {% if account.user.username %}
+        <p>@{{ account.user.username }}</p>
+    {% endif %}
+    {% if account.description %}
+        <p>{{ account.description }}</p>
+    {% endif %}
+    <p><b>Joined</b>: {{ account.created_at }}</p>
+    <p><b>Email</b>: {{ account.user.email }}</p>
+    <a href="{% url 'account-edit' %}"><b>Edit Account</b></a>
+<br>
+{% endfor %}
+<br>
+{% for account in accounts %}
+    <h3>My Twits(<b>{{ account.user.twit.count }})</b><br></h3>
+{% endfor %}
+{% for twit in twits %}
+<b>{{ twit.user.username }}</b><br>
+    {{ twit.created_at }}<br><br>
+    <a href="{% url 'twit' twit.id %}">{{ twit.name }}</a>
+<br><br>
+<a><b>like</b></a> <a href="{% url 'create-comment' twit.id %}"><b>comments({{ twit.comments.count }})</b></a> <a href="{% url 'delete-twit' twit.id %}"><b>delete</b></a>
+<a href="{% url 'edit-twit' twit.id %}"><b>edit</b></a>
+<br><br>
+{% endfor %}
+{% endblock %}
