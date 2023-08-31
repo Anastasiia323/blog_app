@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "blogging-app"
+version = "0.1.0"
+description = ""
+authors = ["Anastasiia323 <anastasiya.nancy@gmail.com>"]
+readme = "README.md"
+packages = [{include = "blogging_app"}]
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.3.3"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flake8 = "^6.1.0"
+flake8-builtins = "2.1.0"
+flake8-comments = "0.1.2"
+mypy = "1.4.1"
+django = "4.2.4"
+python-dotenv = "1.0.0"
+psycopg2 = "2.9.7"
+from-dict = "^0.4.0"
+pillow = "^10.0.0"
+dacite = "1.8.1"
+
+[tool.mypy]
+mypy_path = "sourse/blogging_app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
