@@ -3,6 +3,10 @@
     <b>{{ twit.user.username }}</b><br>
     {{ twit.created_at }}<br><br>
     {{ twit.name }}
+
+{% for tag in tags %}
+    <p>{{ tag.name }}</p>
+{% endfor %}
 <br><br>
 <a><b>like</b></a> <a href="{% url 'create-comment' twit.id %}"><b>comment({{ twit.comments.count }})</b></a> <a href="{% url 'delete-twit' twit.id %}"><b>delete</b></a>
 <a href="{% url 'edit-twit' twit.id %}"><b>edit</b></a>

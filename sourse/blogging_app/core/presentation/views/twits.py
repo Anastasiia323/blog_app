@@ -14,7 +14,8 @@ from ...busines_logic.servises.twits import (
     twit_list,
     twit_by_id,
     delete_twit,
-    edit_twit
+    edit_twit,
+    get_twit
 )
 from ..forms.twits import AddTwitForm, EditTwitForm
 from ..convert_to_dto import convert_to_dto
@@ -42,9 +43,9 @@ def tags_controller(request: HttpRequest) -> HttpResponse:
 
 @require_http_methods(request_method_list=['GET'])
 def get_twit_controller(request: HttpRequest, twit_id: int) -> HttpResponse:
-    twit = twit_by_id(twit_id=twit_id)
+    twit, tags = twit_by_id(twit_id=twit_id)
     comments = comments_list(twit_id=twit_id)
-    context = {'twit': twit, 'comments': comments}
+    context = {'twit': twit, 'comments': comments, 'tags': tags}
     return render(request=request, context=context, template_name='twit_by_id.html')
 
 
@@ -57,8 +58,10 @@ def delete_twit_controller(request: HttpRequest, twit_id: int) -> HttpResponse:
 @require_http_methods(request_method_list=['GET', 'POST'])
 def edit_twit_controller(request: HttpRequest, twit_id: int) -> HttpResponse:
     if request.method == 'GET':
-        twit = twit_by_id(twit_id=twit_id)
-        data = {'name': twit.name}
+        twit = get_twit(twit_id=twit_id)
+        data = {
+            'name': twit.name
+            }
         form = EditTwitForm(data)
         context = {'form': form, 'twit_id': twit_id}
         return render(request=request, template_name='edit_twit.html', context=context)

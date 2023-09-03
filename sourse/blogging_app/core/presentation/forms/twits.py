@@ -8,6 +8,10 @@ class AddTwitForm(forms.Form):
         max_length=400,
         initial='Text something!'
     )
+    tags = forms.CharField(
+        label='Tags',
+        widget=forms.Textarea
+    )
 
 
 class EditTwitForm(forms.Form):

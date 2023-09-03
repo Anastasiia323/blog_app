@@ -7,7 +7,7 @@ class Twits(models.Model):
     name = models.CharField(max_length=256)
     tags = models.ManyToManyField(
         to='Tags',
-        related_name='twits',
+        related_name='twit',
         db_table='twits_tags'
     )
     user = models.ForeignKey(
@@ -20,3 +20,4 @@ class Twits(models.Model):
 
     class Meta:
         db_table = 'Twits'
+
