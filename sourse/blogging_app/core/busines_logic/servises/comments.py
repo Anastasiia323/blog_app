@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from ...models import Twits
 from ..dto.comments import CreateCommentDTO
 from ...models.comments import Comments
-from .twits import twit_by_id
+from .twits import get_twit
 
 
 def create_comment(
@@ -13,7 +13,7 @@ def create_comment(
         twit_id: int
 ):
     data.user = get_user_model().objects.get(username=user)
-    data.twit_id = twit_by_id(twit_id=twit_id)
+    data.twit_id = get_twit(twit_id=twit_id)
     Comments.objects.create(user=data.user,
                             twit=data.twit_id,
                             body=data.name)

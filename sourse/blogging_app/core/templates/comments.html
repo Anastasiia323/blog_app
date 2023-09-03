@@ -4,6 +4,9 @@
     <b>{{ twit.user.username }}</b><br>
     {{ twit.created_at }}<br><br>
     {{ twit.name }}
+{% for tag in tags %}
+    <p>{{ tag.name }}</p>
+{% endfor %}
     <br><br>
     Replying to @{{ twit.user.username }}
 <br><br>

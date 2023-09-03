@@ -18,8 +18,8 @@ from ..convert_to_dto import convert_to_dto
 def create_comment_controller(request: HttpRequest, twit_id: int):
     if request.method == 'GET':
         form = AddCommentForm()
-        twit = twit_by_id(twit_id=twit_id)
-        context = {'form': form, 'twit_id': twit_id, 'twit': twit}
+        twit, tags = twit_by_id(twit_id=twit_id)
+        context = {'form': form, 'twit_id': twit_id, 'twit': twit, 'tags': tags}
         return render(request=request, template_name='comments.html', context=context)
 
     else:

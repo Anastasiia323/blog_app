@@ -27,10 +27,12 @@
 {% for twit in twits %}
 <b>{{ twit.user.username }}</b><br>
     {{ twit.created_at }}<br><br>
-    <a href="{% url 'twit' twit.id %}">{{ twit.name }}</a>
+    {{ twit.name }}
+
+
 <br><br>
 <a><b>like</b></a> <a href="{% url 'create-comment' twit.id %}"><b>comments({{ twit.comments.count }})</b></a> <a href="{% url 'delete-twit' twit.id %}"><b>delete</b></a>
-<a href="{% url 'edit-twit' twit.id %}"><b>edit</b></a>
-<br><br>
+<a href="{% url 'edit-twit' twit.id %}"><b>edit</b></a> <a href="{% url 'twit' twit.id %}"><b>open in new window</b></a>
+<br><br><br>
 {% endfor %}
 {% endblock %}
