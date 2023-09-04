@@ -126,4 +126,3 @@ def change_photo_controller(request: HttpRequest) -> HttpResponse:
 
     return redirect(to='account')
 
-

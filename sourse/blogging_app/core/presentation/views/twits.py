@@ -87,8 +87,8 @@ def edit_twit_controller(request: HttpRequest, twit_id: int) -> HttpResponse:
 
 @require_http_methods(request_method_list=['GET'])
 def get_posts_by_tag_controller(request: HttpRequest, tag_id: int) -> HttpResponse:
-    twits = get_twits_by_tag(tag_id=tag_id)
-    context = {'twits': twits}
+    twits, tags = get_twits_by_tag(tag_id=tag_id)
+    context = {'twits': twits, 'tags': tags}
     return render(request=request, template_name='twits_by_tags.html', context=context)
 
 

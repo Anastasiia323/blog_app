@@ -11,6 +11,7 @@ from ..dto.account import (
     ChangePhotoDTO
 )
 from ...models import Account, Countries, EmailConfirmationCode
+from django.core.paginator import Paginator
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import uuid
 import time
@@ -77,3 +78,9 @@ def change_photo(data: ChangePhotoDTO, user: AbstractBaseUser) -> None:
     account.file = data.file
 
     account.save()
+
+
+def show_all_accounts() -> [Account]:
+    accounts = Account.objects.all()
+    return accounts
+
