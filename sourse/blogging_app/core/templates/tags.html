@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <form method="GET" action="{% url 'tags' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br><br>
+        <input type="submit" id="submit">
+    </form>
+<br><br>
+{% for twit in twits %}
+<b>{{ twit.user.username }}</b><br>
+    {{ twit.created_at }}<br><br>
+    {{ twit.name }}
+
+{% for tag in tags %}
+    <a href="{% url 'tags-posts' tag.id %}"><p>{{ tag.name }}</p></a>
+{% endfor %}
+
+<br><br>
+<a><b>like</b></a> <a href="{% url 'create-comment' twit.id %}"><b>comments({{ twit.comments.count }})</b></a> <a href="{% url 'twit' twit.id %}"><b>open in new window</b></a>
+<br><br><br>
+{% endfor %}
+{%  endblock %}

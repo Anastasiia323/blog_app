@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<br><br>
+{% for twit in twits %}
+<b>{{ twit.user.username }}</b><br>
+    {{ twit.created_at }}<br><br>
+    {{ twit.name }}
+
+<br><br>
+<a><b>like</b></a> <a href="{% url 'create-comment' twit.id %}"><b>comments({{ twit.comments.count }})</b></a> <a href="{% url 'twit' twit.id %}"><b>open in new window</b></a>
+<br><br><br>
+{% endfor %}
+{%  endblock %}
