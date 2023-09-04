@@ -5,7 +5,7 @@
     {{ twit.name }}
 
 {% for tag in tags %}
-    <p>{{ tag.name }}</p>
+    <a href="{% url 'tags-posts' tag.id %}"><p>{{ tag.name }}</p></a>
 {% endfor %}
 <br><br>
 <a><b>like</b></a> <a href="{% url 'create-comment' twit.id %}"><b>comment({{ twit.comments.count }})</b></a> <a href="{% url 'delete-twit' twit.id %}"><b>delete</b></a>

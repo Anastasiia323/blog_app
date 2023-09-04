@@ -8,16 +8,18 @@ if TYPE_CHECKING:
 from django.views.decorators.http import require_http_methods
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
-from ...busines_logic.dto.twits import AddTwitDTO, EditTwitDTO
+from ...busines_logic.dto.twits import AddTwitDTO, EditTwitDTO, SearchTwitDTO
 from ...busines_logic.servises.twits import (
     send_twit,
     twit_list,
     twit_by_id,
     delete_twit,
     edit_twit,
-    get_twit
+    get_twit,
+    get_twits_by_tag,
+    search_twits
 )
-from ..forms.twits import AddTwitForm, EditTwitForm
+from ..forms.twits import AddTwitForm, EditTwitForm, SearchTwit
 from ..convert_to_dto import convert_to_dto
 from ...busines_logic.servises.comments import comments_list
 
@@ -37,8 +39,18 @@ def add_twit(request: HttpRequest) -> HttpResponse:
     return HttpResponseRedirect(redirect_to=reverse('account'))
 
 
+@require_http_methods(request_method_list=['GET'])
 def tags_controller(request: HttpRequest) -> HttpResponse:
-    return HttpResponse('Тут самые популярные тэги')
+    form = SearchTwit(request.GET)
+    if form.is_valid():
+        search_twits_by_tag = convert_to_dto(SearchTwitDTO, form.cleaned_data)
+        twits, tags = search_twits(search_by_tag=search_twits_by_tag)
+        form = SearchTwit()
+        context = {'form': form, 'twits': twits, 'tags': tags}
+        return render(request=request, template_name='tags.html', context=context)
+    else:
+        context = {'form': form}
+        return render(request=request, template_name='tags.html', context=context)
 
 
 @require_http_methods(request_method_list=['GET'])
@@ -73,6 +85,11 @@ def edit_twit_controller(request: HttpRequest, twit_id: int) -> HttpResponse:
     return redirect(to='account')
 
 
+@require_http_methods(request_method_list=['GET'])
+def get_posts_by_tag_controller(request: HttpRequest, tag_id: int) -> HttpResponse:
+    twits = get_twits_by_tag(tag_id=tag_id)
+    context = {'twits': twits}
+    return render(request=request, template_name='twits_by_tags.html', context=context)
 
 
 

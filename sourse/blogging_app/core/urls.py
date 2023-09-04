@@ -5,7 +5,8 @@ from .presentation.views.twits import (
     tags_controller,
     get_twit_controller,
     delete_twit_controller,
-    edit_twit_controller
+    edit_twit_controller,
+    get_posts_by_tag_controller
 )
 from .presentation.views.account import (
     account_controller,
@@ -32,12 +33,13 @@ from .presentation.views.comments import create_comment_controller
 
 urlpatterns = [
     path('', home_controller, name='home'),
+    path('<int:tag_id>/posts_by_tag', get_posts_by_tag_controller, name='tags-posts'),
     path('tags/', tags_controller, name='tags'),
     path('post/add/', add_twit, name='add-twit'),
     path('twit/<int:twit_id>/', get_twit_controller, name='twit'),
-    path('<int:twit_id>/delete', delete_twit_controller, name='delete-twit'),
-    path('<int:twit_id>/edit', edit_twit_controller, name='edit-twit'),
-    path('<int:twit_id>/comment', create_comment_controller, name='create-comment'),
+    path('<int:twit_id>/delete/', delete_twit_controller, name='delete-twit'),
+    path('<int:twit_id>/edit/', edit_twit_controller, name='edit-twit'),
+    path('<int:twit_id>/comment/', create_comment_controller, name='create-comment'),
     path('trends/', trends_in_your_country_controller, name='trends'),
     path('account/', account_controller, name='account'),
     path('account/add/', account_add_controller, name='account-add'),
@@ -53,4 +55,3 @@ urlpatterns = [
     path('logout/', logout_controller, name='logout'),
     path('account/add_twit', add_twit, name='add-twit')
 ]
-

@@ -13,3 +13,9 @@ class EditTwitDTO:
     tags: str
 
 
+@dataclass
+class SearchTwitDTO:
+    tag: str
+
+
+

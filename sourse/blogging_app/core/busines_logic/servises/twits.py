@@ -2,14 +2,15 @@ from __future__ import annotations
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.contrib.auth.models import AbstractBaseUser
-from ..dto.twits import AddTwitDTO, EditTwitDTO
+from ..dto.twits import AddTwitDTO, EditTwitDTO, SearchTwitDTO
 from ...models import Twits, Tags
-import re
 
 
 def twit_list(request) -> [Twits]:
     twits = Twits.objects.filter(user=request.user).order_by('-name')
-    return list(twits)
+    for twit in twits:
+        tags = twit.tags.all
+        return list(twits), tags
 
 
 def send_twit(data: AddTwitDTO, user: AbstractBaseUser) -> None:
@@ -51,3 +52,15 @@ def edit_twit(twit_id: int, data: EditTwitDTO):
     twit.save()
 
 
+def get_twits_by_tag(tag_id: int):
+    twits = Twits.objects.filter(tags__id=tag_id)
+    return twits
+
+
+def search_twits(search_by_tag: SearchTwitDTO) -> [Twits]:
+    twits = Twits.objects.select_related('user').prefetch_related('tags')
+    if search_by_tag.tag:
+        twits = Twits.objects.filter(tags__name=search_by_tag.tag)
+    for twit in twits:
+        tags = twit.tags.all()
+        return list(twits), list(tags)

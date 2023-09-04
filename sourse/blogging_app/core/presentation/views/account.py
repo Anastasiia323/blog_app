@@ -28,7 +28,8 @@ from ...busines_logic.servises.account import (
 )
 from ...busines_logic.servises.twits import (
     send_twit,
-    twit_list
+    twit_list,
+    twit_by_id
 )
 
 from ..convert_to_dto import convert_to_dto
@@ -38,8 +39,8 @@ from ..convert_to_dto import convert_to_dto
 def account_controller(request: HttpRequest) -> HttpResponse:
     accounts = get_account(request=request)
     form = AddTwitForm()
-    twits = twit_list(request=request)
-    context = {'accounts': accounts, 'form': form, 'twits': twits}
+    twits, tags = twit_list(request=request)
+    context = {'accounts': accounts, 'form': form, 'twits': twits, 'tags': tags}
     return render(request=request, template_name='account.html', context=context)
 
 
