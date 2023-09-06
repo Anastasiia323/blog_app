@@ -20,7 +20,9 @@
     <a href="{% url 'account-edit' %}"><b>Edit Account</b></a>
 <br>
 {% endfor %}
-<br>
+{% for account in accounts %}
+<p><b>Subscriptions</b>({{ account.following.count }})</p>
+{% endfor %}
 {% for account in accounts %}
     <h3>My Twits(<b>{{ account.user.twit.count }})</b><br></h3>
 {% endfor %}

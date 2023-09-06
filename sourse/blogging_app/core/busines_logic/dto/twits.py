@@ -10,7 +10,6 @@ class AddTwitDTO:
 @dataclass
 class EditTwitDTO:
     name: str
-    tags: str
 
 
 @dataclass

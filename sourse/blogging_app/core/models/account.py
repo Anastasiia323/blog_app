@@ -6,8 +6,11 @@ class Account(models.Model):
     file = models.ImageField(upload_to='profile/photo/', null=True)
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
-    followers = models.PositiveIntegerField(null=True)
-    subscriptions = models.PositiveIntegerField(null=True)
+    following = models.ManyToManyField(
+        to=get_user_model(),
+        related_name='fallowing',
+        blank=True
+    )
     user = models.OneToOneField(
         to=get_user_model(),
         on_delete=models.CASCADE,

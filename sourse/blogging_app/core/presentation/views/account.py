@@ -24,7 +24,10 @@ from ...busines_logic.servises.account import (
     edit_email,
     get_account,
     get_account_data,
-    change_photo
+    change_photo,
+    get_account_by_id,
+    following,
+    follow_unfollow
 )
 from ...busines_logic.servises.twits import (
     send_twit,
@@ -39,8 +42,8 @@ from ..convert_to_dto import convert_to_dto
 def account_controller(request: HttpRequest) -> HttpResponse:
     accounts = get_account(request=request)
     form = AddTwitForm()
-    twits, tags = twit_list(request=request)
-    context = {'accounts': accounts, 'form': form, 'twits': twits, 'tags': tags}
+    twits = twit_list(request=request)
+    context = {'accounts': accounts, 'form': form, 'twits': twits}
     return render(request=request, template_name='account.html', context=context)
 
 
@@ -124,5 +127,24 @@ def change_photo_controller(request: HttpRequest) -> HttpResponse:
             data = convert_to_dto(ChangePhotoDTO, form.cleaned_data)
             change_photo(data=data, user=request.user)
 
+    return redirect(to='account')
+
+
+@require_http_methods(request_method_list=['GET'])
+def get_account_by_id_controller(request: HttpRequest, account_id: int) -> HttpResponse:
+    account = get_account_by_id(account_id=account_id)
+    followings = following(user=request.user)
+    if account.user in followings:
+        follow = True
+    else:
+        follow = False
+
+    context = {'account': account, 'follow': follow}
+    return render(request=request, context=context, template_name='get_account_by_id.html')
+
+
+@require_http_methods(request_method_list=['GET'])
+def follow_unfollow_controller(request: HttpRequest, account_id: int) -> HttpResponse:
+    follow_unfollow(account_id=account_id, user=request.user)
     return redirect(to='account')
 

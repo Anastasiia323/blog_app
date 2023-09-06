@@ -14,7 +14,9 @@ from .presentation.views.account import (
     account_add_controller,
     change_email_controller,
     change_email_confirm_controller,
-    change_photo_controller
+    change_photo_controller,
+    get_account_by_id_controller,
+    follow_unfollow_controller
 )
 from .presentation.views.login import login_user
 from .presentation.views.notifications import notifications_controller
@@ -33,6 +35,8 @@ from .presentation.views.comments import create_comment_controller
 
 urlpatterns = [
     path('', home_controller, name='home'),
+    path('account/<int:account_id>/', get_account_by_id_controller, name='account-id'),
+    path('subscription/<int:account_id>/', follow_unfollow_controller, name='subscription'),
     path('<int:tag_id>/posts_by_tag', get_posts_by_tag_controller, name='tags-posts'),
     path('tags/', tags_controller, name='tags'),
     path('post/add/', add_twit, name='add-twit'),

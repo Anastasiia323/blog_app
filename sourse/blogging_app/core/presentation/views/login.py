@@ -13,6 +13,7 @@ from ...busines_logic.dto.login import LoginUserDTO
 from ..forms.login import LoginUserForm
 from ...busines_logic.servises.login import authenticate_user
 from ..convert_to_dto import convert_to_dto
+from ...busines_logic.exceptions import InvalidAuthenticateData
 
 
 @require_http_methods(request_method_list=['GET', 'POST'])

@@ -6,11 +6,11 @@ from ..dto.twits import AddTwitDTO, EditTwitDTO, SearchTwitDTO
 from ...models import Twits, Tags
 
 
-def twit_list(request) -> tuple[[Twits], [Tags]]:
+def twit_list(request) -> [Twits]:
     twits = Twits.objects.filter(user=request.user).order_by('-name')
-    for twit in twits:
-        tags = twit.tags.all
-        return twits, tags
+    # for twit in twits:
+    #     tags = twit.tags.all
+    return twits
 
 
 def send_twit(data: AddTwitDTO, user: AbstractBaseUser) -> None:
@@ -59,7 +59,7 @@ def get_twits_by_tag(tag_id: int) -> tuple[[Twits], [Tags]]:
         return twits, tags
 
 
-def search_twits(search_by_tag: SearchTwitDTO) -> tuple[[Twits], [Tags]]:
+def search_twits(search_by_tag: SearchTwitDTO) -> [[Twits], [Tags]]:
     twits = Twits.objects.select_related('user').prefetch_related('tags')
     if search_by_tag.tag:
         twits = Twits.objects.filter(tags__name=search_by_tag.tag)

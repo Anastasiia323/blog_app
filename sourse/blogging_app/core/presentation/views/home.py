@@ -10,11 +10,12 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from ...busines_logic.servises.account import show_all_accounts
 
 
-@require_http_methods(request_method_list=['GET', 'POST'])
+@require_http_methods(request_method_list='GET')
 def home_controller(request: HttpRequest) -> HttpResponse:
     accounts = show_all_accounts()
     context = {'accounts': accounts}
-    return render(request=request, context=context, template_name='home.html')
+    return render(request=request, template_name='home.html', context=context)
+
 
 
 

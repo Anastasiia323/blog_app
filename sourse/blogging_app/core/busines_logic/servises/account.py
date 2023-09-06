@@ -81,6 +81,26 @@ def change_photo(data: ChangePhotoDTO, user: AbstractBaseUser) -> None:
 
 
 def show_all_accounts() -> [Account]:
-    accounts = Account.objects.all()
-    return accounts
+    accounts = Account.objects.select_related('user', 'country')
+    return list(accounts)
 
+
+def get_account_by_id(account_id: int) -> Account:
+    account = Account.objects.select_related('user').get(pk=account_id)
+    return account
+
+
+def following(user) -> [Account.following]:
+    my_account = Account.objects.get(user=user)
+    followings = my_account.following.all()
+    return followings
+
+
+def follow_unfollow(user, account_id):
+    my_account = get_account_data(user=user)
+    account = get_account_by_id(account_id=account_id).user.id
+    if account not in my_account.following.all():
+        my_account.following.add(account)
+
+    else:
+        my_account.following.remove(account)

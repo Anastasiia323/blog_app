@@ -1,11 +1,14 @@
 {% extends "base.html" %}
-{%  block content %}
+{% block content %}
 <br><br>
+{% if user.is_authenticated %}
 <h3>Who to follow</h3>
 {% for account in accounts %}
-    <b>{{ account.name }}</b><br>
+    <a href="{% url 'account-id' account.user.id %}"><b>{{ account.name }}</b></a><br>
     {{ account.user.username }}<br>
-<p><b>follow</b></p>
 <br>
 {% endfor %}
+{% else %}
+    <p>Click "Sight Up" or "Sight In" to use 'Talker'."</p>
+{% endif %}
 {% endblock %}
