@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{%  block content %}
+{% if account.file %}
+    <img src="{{ account.file.url }}">
+{% endif %}
+{% if account.name %}
+    <h2>{{ account.name }} {{ account.surname }}</h2>
+{% endif %}
+@{{ account.user.username }}
+{% if account.description %}
+    {{ account.description }}
+{% endif %}
+    <p><b>Joined</b>: {{ account.created_at }}</p>
+    <p><b>Email</b>: {{ account.user.email }}</p>
+
+{% if not follow %}
+    <a href="{% url 'subscription' account.user.id %}"><p>Subscribe</p><a>
+
+{% else %}
+    <a href="{% url 'subscription' account.user.id %}"><p>Unsubscribe</p><a>
+
+{% endif %}
+{% endblock %}
