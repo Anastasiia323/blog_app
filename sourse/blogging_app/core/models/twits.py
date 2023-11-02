@@ -16,6 +16,7 @@ class Twits(models.Model):
         related_name='twit',
         null=True
     )
+    like = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
