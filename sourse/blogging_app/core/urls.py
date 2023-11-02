@@ -19,6 +19,7 @@ from .presentation.views.account import (
     follow_unfollow_controller
 )
 from .presentation.views.login import login_user
+from .presentation.views.likes import like_twit_controller
 from .presentation.views.notifications import notifications_controller
 from .presentation.views.add_user import (
     confirmation_user,
@@ -37,6 +38,7 @@ urlpatterns = [
     path('', home_controller, name='home'),
     path('account/<int:account_id>/', get_account_by_id_controller, name='account-id'),
     path('subscription/<int:account_id>/', follow_unfollow_controller, name='subscription'),
+    path('like/<int:twit_id>/', like_twit_controller, name='like'),
     path('<int:tag_id>/posts_by_tag', get_posts_by_tag_controller, name='tags-posts'),
     path('tags/', tags_controller, name='tags'),
     path('post/add/', add_twit, name='add-twit'),
