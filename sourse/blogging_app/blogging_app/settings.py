@@ -144,7 +144,7 @@ EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
 EMAIL_BACKEND = os.environ['EMAIL_BACKEND']
 EMAIL_FROM = os.environ['EMAIL_FROM']
 SERVER_HOST = os.environ['SERVER_HOST']
-MEDIA_ROOT = os.path.join(BASE_DIR.parents[5], "media", "blog_app")
+MEDIA_ROOT = os.path.join(BASE_DIR.parents[4], "media", "blog_app")
 
 MEDIA_URL = '/media/'
 
