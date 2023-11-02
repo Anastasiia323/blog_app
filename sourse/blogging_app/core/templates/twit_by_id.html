@@ -8,7 +8,7 @@
     <a href="{% url 'tags-posts' tag.id %}"><p>{{ tag.name }}</p></a>
 {% endfor %}
 <br><br>
-<a><b>like</b></a> <a href="{% url 'create-comment' twit.id %}"><b>comment({{ twit.comments.count }})</b></a> <a href="{% url 'delete-twit' twit.id %}"><b>delete</b></a>
+<a href="{% url 'like' twit.id %}"><b>like</b></a> <a href="{% url 'create-comment' twit.id %}"><b>comment({{ twit.comments.count }})</b></a> <a href="{% url 'delete-twit' twit.id %}"><b>delete</b></a>
 <a href="{% url 'edit-twit' twit.id %}"><b>edit</b></a>
 <h3>Comments</h3>
 {% for comment in comments %}
